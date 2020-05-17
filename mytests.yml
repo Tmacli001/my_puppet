@@ -1,0 +1,25 @@
+--- #yaml语句开始
+- hosts: 192.168.1.26 #my_k8sserver
+  remote_user: root
+  tasks: 
+  - name: check sshd status
+    service: name=sshd state=reloaded
+  - name: install net-tools
+    yum: name=net-tools state=latest #absent xiezai
+   # shell: yum remove net-tools -y
+  - name: copy file
+    copy: src=/root/httpd.confs dest=/etc/httpd/conf/httpd.confs
+    notify:
+     - restart httpd
+     - name: start httpd
+       service: name=httpd state=present
+  handlers:
+  - name: restart httpd
+    service: name=httpd state=restarted
+  - name: install telnet
+    yum: name=telnet state=latest
+  - name: install htop 
+    yum: name=htop state=present
+  - name: check nginx status
+    yum: name=nginx state=???
+
