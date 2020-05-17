@@ -1,0 +1,23 @@
+---
+- hosts:all
+  remote_user:root
+|  tasks:
+    - name: check sshd status
+    service: name=sshd state=started
+    # name: Install net-tools packages
+    # yum:
+    #    - 
+    #      name:  net-tools 
+    #      state:  present
+    #  name: starting sshd service
+    #  service:
+    #    - 
+    #      name:  sshd 
+    #      state:  started
+    #  name: check kube status
+    #  service: 
+    #    -
+    #      name:  kubectl 
+    #      state:  stoped
+
+

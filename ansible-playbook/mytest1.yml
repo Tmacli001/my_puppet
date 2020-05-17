@@ -1,0 +1,26 @@
+--- #yaml语句开始
+- hosts: my_k8sserver
+  remote_user: root
+  tasks: 
+  - name: check sshd status
+    service: name=sshd state=status
+  - name: start httpd
+    service: name=httpd state=status
+  - name: copy file
+    copy: src=/root/httpd.confs dest=/etc/httpd/conf/httpd.confs
+    notify:
+      - restart httpd
+  - name: start httpd
+    service: name=httpd state=present
+    handlers:
+     - name: restart httpd
+       service: name=httpd state=restarted
+  - name: install net-tools
+    yum: name=net-tools state=installed
+  - name: install telnet
+    yum: name=telnet state=latested
+  - name: install htop 
+    yum: name=htop state=present
+  - name: check nginx status
+    yum: name=nginx state=status
+
